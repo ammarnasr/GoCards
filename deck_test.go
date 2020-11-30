@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 func TestNewDeck(t *testing.T) {
 	d := newDeck()
@@ -17,4 +20,15 @@ func TestNewDeck(t *testing.T) {
 		t.Errorf("Expected last card of  but got: %v", d[len(d)-1])
 	}
 
+}
+
+func TestSaveToFileAndSaveToFile(t *testing.T) {
+	os.Remove("_testingDeck")
+	d := newDeck()
+	d.saveToFile("_testingDeck")
+	loadedDeck := newDeckFromFile("_testingDeck")
+	if len(loadedDeck) != 16 {
+		t.Errorf("Expected Length of 16 but got: %v", len(loadedDeck))
+	}
+	os.Remove("_testingDeck")
 }
